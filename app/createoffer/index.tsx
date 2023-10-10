@@ -1,7 +1,7 @@
 import { StyleSheet, Image } from "react-native";
-import DatePicker from "react-datepicker";
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { Text, View } from "../../components/Themed";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { TextInput, Button } from "react-native-paper";
 
 export default function Home() {
@@ -52,14 +52,8 @@ export default function Home() {
         mode="outlined"
         
       />
-      <DatePicker selected={startDate} onChange={startDateHandler} showTimeSelect
-    timeFormat="HH:mm"
-    timeIntervals={15}
-    dateFormat="dd/MM/yyyy HH:mm:ss" />
-      <DatePicker selected={endDate} onChange={endDateHandler} showTimeSelect
-    timeFormat="HH:mm"
-    timeIntervals={15}
-    dateFormat="dd/MM/yyyy HH:mm:ss" />
+      <DateTimePicker value={startDate} onChange={startDateHandler} dateFormat="day month year" />
+      <DateTimePicker value={endDate} onChange={endDateHandler} dateFormat="day month year" />
       <Button
         
         mode="contained"

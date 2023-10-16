@@ -5,15 +5,12 @@ import { SetStateAction, useState } from "react";
 import { TextInput, Button } from "react-native-paper";
 
 export default function Home(props) {
-  const [accountName, setAccountName] = useState<string>("");
-  const [accountSurname, setAccountSurname] = useState<string>("");
-  const [accountPhone, setAccountPhone] = useState<string>("");
-  const [accountEmail, setAccountEmail] = useState<string>("");
-  const [accountPassword, setAccountPassword] = useState<string>("");
+  const [businessName, setBusinessName] = useState<string>("");
+  const [businessAdress, setBusinessAdress] = useState<string>("");
   
 
   const creationOffer=()=>{
-    if(accountName == "" || accountSurname == ""|| accountPhone == ""|| accountEmail == ""|| accountPassword == "" ){
+    if(businessName == "" || businessAdress == "" ){
       alert("Veuillez remplir toutes les informations")
     }
     
@@ -26,41 +23,20 @@ export default function Home(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title1}>Inscription</Text>
+      <Text style={styles.title1}>Créer un nouvel établissement</Text>
 
       <TextInput
         label="Nom"
-        value={accountSurname}
-        onChangeText={setAccountSurname}
+        value={businessName}
+        onChangeText={setBusinessName}
         mode="outlined"
         
       />
       
       <TextInput
-        label="Prénom"
-        value={accountName}
-        onChangeText={setAccountName}
-        mode="outlined"
-        
-      />
-      <TextInput
-        label="Téléphone"
-        value={accountPhone}
-        onChangeText={setAccountPhone}
-        mode="outlined"
-        
-      />
-      <TextInput
-        label="Email"
-        value={accountEmail}
-        onChangeText={setAccountEmail}
-        mode="outlined"
-        
-      />
-      <TextInput
-        label="Mot de passe"
-        value={accountPassword}
-        onChangeText={setAccountPassword}
+        label="Adresse"
+        value={businessAdress}
+        onChangeText={setBusinessAdress}
         mode="outlined"
         
       />

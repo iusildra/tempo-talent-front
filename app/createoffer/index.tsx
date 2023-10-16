@@ -4,32 +4,56 @@ import { Text, View } from "../../components/Themed";
 import { SetStateAction, useState } from "react";
 import { TextInput, Button } from "react-native-paper";
 
-export default function Home() {
+export default function Home(props: { etablissement: string; }) {
   const [offerName, setOfferName] = useState<string>("");
   const [offerDescription, setOfferDescription] = useState<string>("");
   const [offerSalary, setOfferSalary] = useState<string>("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const startDateHandler = (event) => {
-    console.log("event",event);
-    const gettodate = setStartDate(event);
-    
+  
+  const [selectedStartingDate, setSelectedStartingDate] = useState(new Date());
+  const [selectedEndingDate, setSelectedEndingDate] = useState(new Date());
+  const [datePickerVisibleStarting, setStartingDatePickerVisible] = useState(false);
+  const [datePickerVisibleEnding, setEndingDatePickerVisible] = useState(false);
+
+  const creationOffer=()=>{
+    if(offerName == "" || offerDescription == "" || offerSalary==""){
+      alert("Veuillez remplir toutes les informations")
+    }
+    else if(selectedStartingDate>selectedEndingDate){
+      alert("Vous ne pouvez pas finir avant d'avoir commencé")
+    }
+    else{
+      console.log(offerName+offerDescription+offerSalary+selectedStartingDate+selectedEndingDate+props.etablissement)
+    }
+  }
+
+  const showEndingDatePicker = () => {
+    setEndingDatePickerVisible(true);
   };
-  const endDateHandler = (event) => {
-    console.log("event",event);
-    const gettodate = setEndDate(event);
-    
+  const showStartingDatePicker = () => {
+    setStartingDatePickerVisible(true);
   };
+  
+  const hideEndingDatePicker = () => {
+    setEndingDatePickerVisible(false);
+  };
+  const hideStartingDatePicker = () => {
+    setStartingDatePickerVisible(false);
+  };
+  const handleStartingConfirm = (_, date) => {
+    
+    setSelectedStartingDate(date);
+    hideStartingDatePicker();
+  }
+  const handleEndingConfirm = (_, date) => {
+    
+    setSelectedEndingDate(date);
+    hideEndingDatePicker();
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title1}>Créer une nouvelle offre</Text>
-      
-      
-      
-      
 
-      
       <TextInput
         label="Nom"
         value={offerName}
@@ -45,6 +69,7 @@ export default function Home() {
         mode="outlined"
         
       />
+      
       <TextInput
         label="Salaire"
         value={offerSalary}
@@ -52,16 +77,37 @@ export default function Home() {
         mode="outlined"
         
       />
-      <DateTimePicker value={startDate} onChange={startDateHandler} dateFormat="day month year" />
-      <DateTimePicker value={endDate} onChange={endDateHandler} dateFormat="day month year" />
+      
+      {selectedStartingDate ? <Text>{selectedStartingDate.toLocaleDateString()}</Text> : <Text>No starting date chosen</Text>}
+      <Button  onPress={showStartingDatePicker} style={styles.button} >Choose starting date</Button>
+      {datePickerVisibleStarting ? (<DateTimePicker
+          value={selectedStartingDate}
+          
+          mode="date"
+          onChange={handleStartingConfirm}
+          
+        />):null}
+
+
+{selectedEndingDate ? <Text>{selectedEndingDate.toLocaleDateString()}</Text> : <Text>No ending date chosen</Text>}
+      <Button  onPress={showEndingDatePicker} style={styles.button} >Choose ending date</Button>
+      {datePickerVisibleEnding ? (<DateTimePicker
+          value={selectedEndingDate}
+          
+          mode="date"
+          onChange={handleEndingConfirm}
+          
+        />):null}
+      
       <Button
         
         mode="contained"
         style={styles.button}
-        onPress={() => console.log("Pressed")}
+        onPress={() => creationOffer()}
       >
         Créer
       </Button>
+
     </View>
   );
 }

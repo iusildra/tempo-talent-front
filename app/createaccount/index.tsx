@@ -4,7 +4,7 @@ import { Text, View } from "../../components/Themed";
 import { SetStateAction, useState } from "react";
 import { TextInput, Button } from "react-native-paper";
 
-export default function Home(props) {
+export default function Home() {
   const [accountName, setAccountName] = useState<string>("");
   const [accountSurname, setAccountSurname] = useState<string>("");
   const [accountPhone, setAccountPhone] = useState<string>("");

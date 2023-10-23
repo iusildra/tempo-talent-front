@@ -1,5 +1,5 @@
 import { StyleSheet, Image } from "react-native";
-import DateTimePicker from '@react-native-community/datetimepicker';
+import * as DocumentPicker from 'expo-document-picker';
 import { Text, View } from "../../components/Themed";
 import { SetStateAction, useState } from "react";
 import { TextInput, Button } from "react-native-paper";
@@ -7,8 +7,16 @@ import { TextInput, Button } from "react-native-paper";
 export default function Home(props) {
   const [businessName, setBusinessName] = useState<string>("");
   const [businessAdress, setBusinessAdress] = useState<string>("");
+  const [businessDocument,setBusinessDocument] = useState<string>("");
   
+  const _pickDocument = async () => {
 
+    let result = await DocumentPicker.getDocumentAsync({type:'image/*'});
+
+    result.assets?setBusinessDocument(result.assets[0].uri):null
+   
+    
+    }
   const creationOffer=()=>{
     if(businessName == "" || businessAdress == "" ){
       alert("Veuillez remplir toutes les informations")
@@ -40,9 +48,15 @@ export default function Home(props) {
         mode="outlined"
         
       />
-      
-      
-      
+      <Image source={{uri:businessDocument}}
+    width={100} height={100}/>
+<Text>{businessDocument}</Text>
+      <Button
+mode="contained"
+style={styles.button}
+onPress={_pickDocument}
+> Select Document</Button>
+
       <Button
         
         mode="contained"

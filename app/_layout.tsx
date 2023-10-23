@@ -8,16 +8,7 @@ import { PaperProvider } from "react-native-paper";
 
 export { ErrorBoundary } from "expo-router"; // Catch any errors thrown by the Layout component.
 
-export const unstable_settings = { initialRouteName: "recruiter" }; // Ensure that reloading on `/modal` keeps a back button present.
-
-const darkTheme = {
-  ...DarkTheme,
-  colors: {
-    ...DarkTheme.colors,
-    primary: "tomato",
-    secondary: "yellow",
-  },
-};
+// export const unstable_settings = { initialRouteName: "recruiter" };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -51,9 +42,8 @@ function RootLayoutNav() {
     <ThemeProvider value={DarkTheme}>
       <PaperProvider>
         <SafeAreaProvider>
-          <Stack>
+          <Stack initialRouteName="recruiter">
             <Stack.Screen name="recruiter" options={{ headerShown: false }} />
-            <Stack.Screen name="modal" options={{ presentation: "modal" }} />
           </Stack>
         </SafeAreaProvider>
       </PaperProvider>

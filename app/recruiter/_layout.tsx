@@ -1,6 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
-import { TouchableOpacity, useColorScheme } from "react-native";
+import { useColorScheme } from "react-native";
 
 import Colors from "../../constants/Colors";
 
@@ -13,7 +13,7 @@ const TabBarIcon: React.FC<TarBarIconProps> = (props) => (
   <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />
 );
 
-const Logo = () => (
+const Home = () => (
   <Link href="/recruiter">
     <FontAwesome name="home" size={24} color="white" />
   </Link>
@@ -28,7 +28,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerLeftContainerStyle: { paddingLeft: 10 },
         headerRightContainerStyle: { paddingRight: 20 },
-        headerRight: Logo,
+        headerRight: Home,
       }}
     >
       <Tabs.Screen
@@ -39,10 +39,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="search"
+        name="companies"
         options={{
-          title: "Search",
+          title: "Companies",
           tabBarIcon: (props) => TabBarIcon({ name: "search", ...props }),
+        }}
+      />
+      <Tabs.Screen
+        name="subscriptions"
+        options={{
+          title: "Subscriptions",
+          tabBarIcon: (props) => TabBarIcon({ name: "link", ...props }),
         }}
       />
     </Tabs>

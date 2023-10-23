@@ -1,14 +1,22 @@
-import { StyleSheet, Image } from "react-native";
-
+import { Image } from "react-native";
 import { Text, View } from "../../components/Themed";
-import { useState } from "react";
-import { TextInput, Button } from "react-native-paper";
+import styles from "../../styles/styles";
+import CompanySearch from "../../components/CompanySearch";
+import Separator from "../../components/Separator";
+import { router } from "expo-router";
 
 export default function Home() {
-  const [keywords, setKeywords] = useState<string>("");
-  const [location, setLocation] = useState<string>("");
   const firstName = "John";
   const lastName = "Doe";
+
+  const fetchCompanies = async (keywords: string, location: string) => {
+    const body: SearchCompaniesDTO & Record<string, string> = {
+      keywords: keywords,
+      location: location,
+    };
+    router.replace("/recruiter/companies");
+    router.setParams(body);
+  }
 
   return (
     <View style={styles.container}>
@@ -19,78 +27,13 @@ export default function Home() {
         }}
         style={styles.homePicture}
       />
-      <Text style={styles.title2}>
+      <Text style={styles.title2} cy-data="">
         {firstName} {lastName}
       </Text>
 
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
+      <Separator />
 
-      <Text style={styles.label}>Jobs, Company, Keywords...</Text>
-      <TextInput
-        label="Keywords"
-        value={keywords}
-        onChangeText={setKeywords}
-        mode="outlined"
-        right={<TextInput.Icon icon="magnify" />}
-      />
-      <Text style={styles.label}>Location</Text>
-      <TextInput
-        label="Location"
-        value={location}
-        onChangeText={setLocation}
-        mode="outlined"
-        right={<TextInput.Icon icon="crosshairs-gps" />}
-      />
-      <Button
-        icon="magnify"
-        mode="contained"
-        style={styles.button}
-        onPress={() => console.log("Pressed")}
-      >
-        Press me
-      </Button>
+      <CompanySearch search={fetchCompanies}/>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title1: {
-    fontSize: 32,
-    fontWeight: "bold",
-    marginVertical: 24,
-  },
-  title2: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginTop: 12,
-    marginBottom: 24,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginTop: 8,
-    marginBottom: 2,
-  },
-  separator: {
-    marginVertical: 12,
-    height: 4,
-    width: "80%",
-  },
-  homePicture: {
-    width: 128,
-    height: 128,
-    borderRadius: 64,
-  },
-  button: {
-    marginTop: 12,
-  },
-});

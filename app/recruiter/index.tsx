@@ -1,125 +1,39 @@
-import { StyleSheet, Image } from "react-native";
-
+import { Image } from "react-native";
 import { Text, View } from "../../components/Themed";
-import { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, useState } from "react";
-import { TextInput, Button } from "react-native-paper";
+import styles from "../../styles/styles";
+import CompanySearch from "../../components/CompanySearch";
+import Separator from "../../components/Separator";
+import { router } from "expo-router";
 
-export default function Home(props: { name: string | (() => string); surname: string | (() => string); phoneNumber: string | (() => string); mail: string | (() => string); abonnement: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; dureeabonnement: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; }) {
-  const [name, setName] = useState<string>(props.name || "");
-  const [surname, setSurname] = useState<string>(props.surname || "");
-  const [phoneNumber, setPhonenumber] = useState<string>(props.phoneNumber|| "");
-  const [mail, setMail] = useState<string>(props.mail|| "");
+export default function Home() {
+  const firstName = "John";
+  const lastName = "Doe";
 
-  
+  const fetchCompanies = async (keywords: string, location: string) => {
+    const body: SearchCompaniesDTO & Record<string, string> = {
+      keywords: keywords,
+      location: location,
+    };
+    router.replace("/recruiter/companies");
+    router.setParams(body);
+  }
 
   return (
-    <View >
-      
-      
-      
-      
-      
+    <View style={styles.container}>
+      <Text style={styles.title1}>Temporary job search</Text>
+      <Image
+        source={{
+          uri: "https://media.licdn.com/dms/image/D4E03AQHbr1KbFhG1cQ/profile-displayphoto-shrink_800_800/0/1665162341640?e=1701302400&v=beta&t=DdcjuKNnoH1hb78nJP_RTIcPArBUlL4qclh-7LOn-kE",
+        }}
+        style={styles.homePicture}
+      />
+      <Text style={styles.title2} cy-data="">
+        {firstName} {lastName}
+      </Text>
 
-      
-      <TextInput
-        label="Nom"
-        value={surname}
-        onChangeText={setSurname}
-        mode="outlined"
-        
-      />
-      <TextInput
-        label="Prénom"
-        value={name}
-        onChangeText={setName}
-        mode="outlined"
-        
-      />
-      
-      <TextInput
-        label="Téléphone"
-        value={phoneNumber}
-        onChangeText={setPhonenumber}
-        mode="outlined"
-        
-      />
-      <TextInput
-        label="Email"
-        value={mail}
-        onChangeText={setMail}
-        mode="outlined"
-        
-      />
-      <Text>{props.abonnement}</Text>
-      <Text>{props.dureeabonnement}</Text>
-      <Button
-        className="button"
-        mode="contained"
-        style={styles.button}
-        onPress={() => console.log("Pressed")}
-      >
-        Offres passées
-      </Button>
-      
-        <Button
-        className="button"
-        mode="contained"
-        style={styles.button}
-        onPress={() => console.log("Pressed")}
-      >
-        Modifier
-      </Button>
-      <Button
-        className="button"
-        mode="contained"
-        style={styles.button}
-        onPress={() => console.log("Pressed")}
-      >
-        Supprimer
-      </Button>
-      
-      
-      
+      <Separator />
+
+      <CompanySearch search={fetchCompanies}/>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  
-  title1: {
-    fontSize: 32,
-    fontWeight: "bold",
-    marginVertical: 24,
-  },
-  title2: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginTop: 12,
-    marginBottom: 24,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginTop: 8,
-    marginBottom: 2,
-  },
-  separator: {
-    marginVertical: 12,
-    height: 4,
-    width: "80%",
-  },
-  homePicture: {
-    width: 128,
-    height: 128,
-    borderRadius: 64,
-  },
-  button: {
-    marginTop: 12,
-    backgroundColor:'blue'
-  },
-});

@@ -5,10 +5,10 @@ import { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, useState }
 import { TextInput, Button } from "react-native-paper";
 
 export default function Home(props: { name: string | (() => string); surname: string | (() => string); phoneNumber: string | (() => string); mail: string | (() => string); abonnement: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; dureeabonnement: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; }) {
-  const [name, setName] = useState<string>(props.name || "");
-  const [surname, setSurname] = useState<string>(props.surname || "");
-  const [phoneNumber, setPhonenumber] = useState<string>(props.phoneNumber|| "");
-  const [mail, setMail] = useState<string>(props.mail|| "");
+  const [name, setName] = useState<string>(props.name || "Dino");
+  const [surname, setSurname] = useState<string>(props.surname || "Greil");
+  const [phoneNumber, setPhonenumber] = useState<string>(props.phoneNumber|| "0647896506");
+  const [mail, setMail] = useState<string>(props.mail|| "dino.greil@etu.umontpellier.fr");
 
   
 
@@ -50,8 +50,9 @@ export default function Home(props: { name: string | (() => string); surname: st
         mode="outlined"
         
       />
-      <Text>{props.abonnement}</Text>
-      <Text>{props.dureeabonnement}</Text>
+      <View style={styles.subscription}><Text>{props.abonnement || "Abonnement Gold"}</Text>
+      <Text>{props.dureeabonnement  || "2 mois"}</Text></View>
+      
       <Button
         className="button"
         mode="contained"
@@ -60,8 +61,7 @@ export default function Home(props: { name: string | (() => string); surname: st
       >
         Offres passées
       </Button>
-      
-        <Button
+      <View style={styles.buttoncontainer}><Button
         className="button"
         mode="contained"
         style={styles.button}
@@ -76,7 +76,8 @@ export default function Home(props: { name: string | (() => string); surname: st
         onPress={() => console.log("Pressed")}
       >
         Supprimer
-      </Button>
+      </Button></View>
+        
       
       
       
@@ -85,6 +86,17 @@ export default function Home(props: { name: string | (() => string); surname: st
 }
 
 const styles = StyleSheet.create({
+  buttoncontainer:{
+    display: "flex",
+    marginTop: 24,
+    marginBottom: 24,
+  },
+  subscription:{
+    marginTop: 24,
+    marginBottom: 24,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   container: {
     flex: 1,
     alignItems: "center",

@@ -1,66 +1,96 @@
 import { StyleSheet, Image } from "react-native";
 
 import { Text, View } from "../../components/Themed";
-import { SetStateAction, useState } from "react";
+import { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, useState } from "react";
 import { TextInput, Button } from "react-native-paper";
-import { Link, Stack } from 'expo-router';
 
-export default function Login() {
-  const [loginEmail, setLoginEmail] = useState<string>("");
-  const [loginPassword, setLoginPassword] = useState<string>("");
+export default function Home(props: { name: string | (() => string); surname: string | (() => string); phoneNumber: string | (() => string); mail: string | (() => string); abonnement: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; dureeabonnement: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; }) {
+  const [name, setName] = useState<string>(props.name || "");
+  const [surname, setSurname] = useState<string>(props.surname || "");
+  const [phoneNumber, setPhonenumber] = useState<string>(props.phoneNumber|| "");
+  const [mail, setMail] = useState<string>(props.mail|| "");
+
   
 
-  const connexion=()=>{
-    console.log(loginEmail+loginPassword)
-  }
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title1}>Login</Text>
+    <View >
+      
+      
+      
+      
+      
 
+      
+      <TextInput
+        label="Nom"
+        value={surname}
+        onChangeText={setSurname}
+        mode="outlined"
+        
+      />
+      <TextInput
+        label="Prénom"
+        value={name}
+        onChangeText={setName}
+        mode="outlined"
+        
+      />
+      
+      <TextInput
+        label="Téléphone"
+        value={phoneNumber}
+        onChangeText={setPhonenumber}
+        mode="outlined"
+        
+      />
       <TextInput
         label="Email"
-        value={loginEmail}
-        onChangeText={setLoginEmail}
+        value={mail}
+        onChangeText={setMail}
         mode="outlined"
         
       />
-      
-      <TextInput
-        label="Mot de passe"
-        value={loginPassword}
-        onChangeText={setLoginPassword}
-        mode="outlined"
-        
-      />
-      
-      
-      
+      <Text>{props.abonnement}</Text>
+      <Text>{props.dureeabonnement}</Text>
       <Button
-        
+        className="button"
         mode="contained"
         style={styles.button}
-        onPress={() => connexion()}
+        onPress={() => console.log("Pressed")}
       >
-        Connexion
+        Offres passées
       </Button>
-    <Text>Vous n'êtes pas encore inscrit ? Inscrivez-vous <Link href="/createaccount" style={styles.link}>ici</Link></Text>  
+      
+        <Button
+        className="button"
+        mode="contained"
+        style={styles.button}
+        onPress={() => console.log("Pressed")}
+      >
+        Modifier
+      </Button>
+      <Button
+        className="button"
+        mode="contained"
+        style={styles.button}
+        onPress={() => console.log("Pressed")}
+      >
+        Supprimer
+      </Button>
+      
+      
+      
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-    fontSize: 14,
-    color: '#2e78b7',
-  },
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
+  
   title1: {
     fontSize: 32,
     fontWeight: "bold",
